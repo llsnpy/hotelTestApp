@@ -1,0 +1,129 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-hotel-schema
+      author: p.mironenko
+      changes:
+        - createTable:
+            tableName: hotel
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(2000)
+              - column:
+                  name: brand
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: house_number
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: street
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: city
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: country
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: post_code
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: check_in
+                  type: varchar(20)
+              - column:
+                  name: check_out
+                  type: varchar(20)
+
+        - createTable:
+            tableName: amenity
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+        - createTable:
+            tableName: hotel_amenity
+            columns:
+              - column:
+                  name: hotel_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_hotel_amenity_hotel
+                    references: hotel(id)
+              - column:
+                  name: amenity_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_hotel_amenity_amenity
+                    references: amenity(id)
+
+        - addPrimaryKey:
+            tableName: hotel_amenity
+            columnNames: hotel_id, amenity_id
+            constraintName: pk_hotel_amenity
+
+        - createIndex:
+            tableName: hotel
+            indexName: index_hotel_brand
+            columns:
+              - column:
+                  name: brand
+
+        - createIndex:
+            tableName: hotel
+            indexName: index_hotel_city
+            columns:
+              - column:
+                  name: city
+
+        - createIndex:
+            tableName: hotel
+            indexName: index_hotel_country
+            columns:
+              - column:
+                  name: country
