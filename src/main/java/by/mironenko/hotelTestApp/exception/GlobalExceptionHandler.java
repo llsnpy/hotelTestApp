@@ -1,5 +1,6 @@
 package by.mironenko.hotelTestApp.exception;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
@@ -21,12 +22,12 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException e) {
-    Map<String, String> errors = e.getBindingResult().getFieldErrors().stream()
-        .collect(Collectors.toMap(
-            FieldError::getField,
-            error -> error.getDefaultMessage() != null ?  error.getDefaultMessage() : "Invalid value",
-            (existing, replacement) -> existing
-        ));
+    Map<String, String> errors = new LinkedHashMap<>();
+    e.getBindingResult().getFieldErrors().forEach(error -> {
+      var field = error.getField();
+      var message = error.getDefaultMessage() != null ? error.getDefaultMessage() : "Invalid value";
+      errors.put(field, message);
+    });
     return ResponseEntity
         .status(HttpStatus.BAD_REQUEST)
         .body(errors);

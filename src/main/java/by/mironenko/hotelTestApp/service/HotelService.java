@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface HotelService {
-
   List<HotelShortResponse> getAllHotels();
   HotelDetailResponse getHotelById(final Long id);
   List<HotelShortResponse> search(

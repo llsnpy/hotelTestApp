@@ -142,14 +142,18 @@ public class DefaultHotelService implements HotelService {
   }
 
   private boolean hasAnyAmenity(final Hotel hotel, final Set<String> requestedAmenities) {
+    if (requestedAmenities.isEmpty()) {
+      return true;
+    }
     if (hotel.getAmenities() == null || hotel.getAmenities().isEmpty()) {
       return false;
     }
-    return hotel.getAmenities().stream()
+    var amenities = hotel.getAmenities().stream()
         .map(Amenity::getName)
         .filter(Objects::nonNull)
         .map(String::toLowerCase)
-        .anyMatch(requestedAmenities::contains);
+        .collect(Collectors.toSet());
+    return amenities.containsAll(requestedAmenities);
   }
 
   private boolean isBlank(final String value) {
