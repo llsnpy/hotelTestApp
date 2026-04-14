@@ -7,7 +7,7 @@
 
   <changeSet id="changelog-001-create-hotel-schema" author="p.mironenko">
 
-    <createTable schemaName="PUBLIC" tableName="hotel">
+    <createTable tableName="hotel">
       <column name="id" type="bigint" autoIncrement="true">
         <constraints primaryKey="true" nullable="false"/>
       </column>
@@ -43,7 +43,7 @@
       <column name="check_out" type="varchar(20)"/>
     </createTable>
 
-    <createTable schemaName="PUBLIC" tableName="amenity">
+    <createTable tableName="amenity">
       <column name="id" type="bigint" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
@@ -52,7 +52,7 @@
       </column>
     </createTable>
 
-    <createTable schemaName="PUBLIC" tableName="hotel_amenity">
+    <createTable tableName="hotel_amenity">
       <column name="hotel_id" type="bigint">
         <constraints nullable="false"
           foreignKeyName="fk_hotel_amenity_hotel"
@@ -64,10 +64,6 @@
           references="amenity(id)"/>
       </column>
     </createTable>
-
-    <addPrimaryKey tableName="hotel_amenity"
-      columnNames="hotel_id, amenity_id"
-      constraintName="pk_hotel_amenity"/>
 
     <createIndex tableName="hotel" indexName="index_hotel_brand">
       <column name="brand"/>
