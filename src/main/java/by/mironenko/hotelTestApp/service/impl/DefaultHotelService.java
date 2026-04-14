@@ -136,7 +136,8 @@ public class DefaultHotelService implements HotelService {
           .collect(Collectors.groupingBy(v -> v, LinkedHashMap::new, Collectors.counting()));
 
       default -> throw new IllegalArgumentException(
-          "Unsupported histogram param: " + param + ". Allowed: brand, city, country, amenities");
+          String.format("Unsupported histogram param: %s. Allowed: brand, city, country, amenities", param)
+      );
     };
   }
 
