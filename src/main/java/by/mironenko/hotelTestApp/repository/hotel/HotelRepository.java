@@ -16,9 +16,9 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
 
   List<Hotel> findByBrand(final String brand);
 
-  List<Hotel> findByCity(final String city);
+  List<Hotel> findHotelByAddress_City(final String city);
 
-  List<Hotel> findByCountry(final String country);
+  List<Hotel> findHotelByAddress_Country(String addressCountry);
 
   @Query("select distinct h from Hotel h join h.amenities a where a.name in :amenities")
   List<Hotel> findByAmenities(final List<String> amenities);
