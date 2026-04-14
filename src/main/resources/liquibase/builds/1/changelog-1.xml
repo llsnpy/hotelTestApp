@@ -39,7 +39,9 @@
       <column name="email" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
-      <column name="check_in" type="varchar(20)"/>
+      <column name="check_in" type="varchar(20)">
+        <constraints nullable="false"/>
+      </column>
       <column name="check_out" type="varchar(20)"/>
     </createTable>
 
